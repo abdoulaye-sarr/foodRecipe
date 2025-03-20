@@ -42,7 +42,7 @@ import {
             <Text style={styles.categoryText}>My Food</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("FavoriteScreen")} // Navigate to "MyFood" screen
+            onPress={() => navigation.navigate("FavoriteScreen")} // Navigate to "FavoriteScreen" screen
             style={styles.categoryContainer}
           >
             <View style={[styles.imageContainer, styles.myFoodButton]}>
