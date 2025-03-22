@@ -28,7 +28,7 @@ import {
     );
     console.log('favoriteRecipe from custom',favoriteRecipe);
     
-    const isFavourite = favoriteRecipe.includes(recipe.idCategory); // Adjust this according to your recipe structure
+    // const isFavourite = favoriteRecipe.includes(recipe.idFood); // Adjust this according to your recipe structure
   
     if (!recipe) {
       return (
@@ -63,12 +63,12 @@ import {
           >
             <Text>Back</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={handleToggleFavorite}
             style={styles.favoriteButton}
           >
             <Text>{isFavourite ? "♥" : "♡"}</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
   
         {/* Recipe Details */}
