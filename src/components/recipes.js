@@ -13,7 +13,7 @@ export default function Recipe({ categories, foods }) {
   return (
     <View style={styles.container}>
       <View testID="recipesDisplay">
-        <FlatList data={foods} keyExtractor={item => item.id} numColumns={2} renderItem={renderItem} />
+        <FlatList data={foods} keyExtractor={item => item.idFood} numColumns={2} renderItem={renderItem} />
       </View>
     </View>
   );
@@ -22,7 +22,7 @@ export default function Recipe({ categories, foods }) {
 const ArticleCard = ({ item, index, navigation }) => {
   return (
     <View
-      style={[styles.cardContainer, { paddingLeft: 20, paddingRight: 15 }]} testID="articleDisplay"
+      style={[styles.cardContainer, { paddingLeft: 20, paddingRight: 15 }]} testID="recipeDisplay"
     >
       <TouchableOpacity
         onPress={() => navigation.navigate("RecipeDetail", { ...item })}

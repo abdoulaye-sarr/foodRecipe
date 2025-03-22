@@ -97,7 +97,7 @@ export default function RecipeDetailScreen(props) {
           <Text style={styles.sectionTitle}>Ingredients</Text>
           {
             recipe.ingredients.map(ingredient => (
-              <View key={ingredient} style={styles.ingredientItem}>
+              <View key={ingredient.ingredientName} style={styles.ingredientItem}>
                 <View style={styles.ingredientBullet} />
                 <Text style={styles.ingredientText}>
                   {ingredient.ingredientName} {ingredient.measure}
@@ -109,10 +109,12 @@ export default function RecipeDetailScreen(props) {
 
         {/* Instructions */}
         <View style={styles.sectionContainer} testID="sectionContainer">
-        <Text style={styles.sectionTitle}>Instructions</Text>
-         <Text style={styles.instructionsText}>
-            {recipe.recipeInstructions}
-         </Text>
+          <Text style={styles.sectionTitle}>Instructions</Text>
+          <View style={styles.contentContainer}>
+            <Text style={styles.instructionsText}>
+              {recipe.recipeInstructions}
+            </Text>
+          </View>
         </View>
         {/* Description */}
 
