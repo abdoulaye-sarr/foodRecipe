@@ -1,7 +1,7 @@
-import { View,Text,TextInput,TouchableOpacity,Image,StyleSheet,} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, } from "react-native";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {widthPercentageToDP as wp,heightPercentageToDP as hp,} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp, } from "react-native-responsive-screen";
 
 export default function RecipesFormScreen({ route, navigation }) {
   const { recipeToEdit, recipeIndex, onrecipeEdited } = route.params || {};
@@ -11,12 +11,38 @@ export default function RecipesFormScreen({ route, navigation }) {
     recipeToEdit ? recipeToEdit.description : ""
   );
 
+  console.log(recipeToEdit, recipeIndex);
+
   const saverecipe = async () => {
- 
+    const recipe = { title, image, description }; // Shorthand Property Names => Equivalent to recipe = {title : title, image : image, description : description}
+    try {
+      const existingRecipes = await AsyncStorage.getItem("customRecipes");
+      const recipes = existingRecipes ? JSON.parse(existingRecipes) : [];
+
+      // If editing a recipe, update it; otherwise, add a new one
+      if (recipeToEdit !== undefined) {
+        recipes[recipeIndex] = recipe;
+        await AsyncStorage.setItem("customRecipes", JSON.stringify(recipes));
+        if (onrecipeEdited) onrecipeEdited(); // Notify the edit
+      } else {
+        recipes.push(recipe); // Add new recipe
+        await AsyncStorage.setItem("customRecipes", JSON.stringify(recipes));
+      }
+
+      navigation.goBack(); // Return to the previous screen
+    } catch (error) {
+      console.error("Error saving the recipe:", error);
+    }
+
   };
 
   return (
     <View style={styles.container}>
+      {/* Back Button */}
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Text style={styles.backButtonText}>{"Back"}</Text>
+      </TouchableOpacity>
+
       <TextInput
         placeholder="Title"
         value={title}
@@ -63,7 +89,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 300,
-    height:200,
+    height: 200,
     margin: wp(2),
   },
   imagePlaceholder: {
@@ -86,5 +112,12 @@ const styles = StyleSheet.create({
   saveButtonText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  backButton: {
+    marginBottom: hp(1.5),
+  },
+  backButtonText: {
+    fontSize: hp(2.2),
+    color: "#4F75FF",
   },
 });
